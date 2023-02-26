@@ -4,50 +4,85 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./assets/styles.css" />
     <title>Erik's Trivia Quiz</title>
   </head>
+
   <body>
-    <div class="wrapper">
+    <div id="starting-page">
       <h1>Coding Quiz Challenge</h1>
       <p>
         Try to answer the following code-related questions within the time
         limit. Keep in mind that incorrect answers will penalize your score/time
-        by ten seconds
+        by ten seconds.
       </p>
+      <button id="start-quiz-btn">Start Quiz</button>
+    </div>
 
-      <h1>Question 1</h1>
-      <button class="btn">Answer 1</button>
-      <button class="btn">Answer 2</button>
-      <button class="btn">Answer 3</button>
-      <button class="btn">Answer 4</button>
+    <div id="friend-container" class="container"></div>
+    <!-- <div class="question-container">
+      <h1>Commonly used data types DO Not Include</h1>
+      <button class="btn">1. strings</button>
+      <button class="btn">2. booleans</button>
+      <button class="btn">3. alerts</button>
+      <button class="btn">4. numbers</button>
     </div>
-    <div class="wrapper">
-      <h1>Question 2</h1>
-      <button class="btn">Answer 1</button>
-      <button class="btn">Answer 2</button>
-      <button class="btn">Answer 3</button>
-      <button class="btn">Answer 4</button>
+
+    <div class="question-container">
+      <h1>The condition in an if/else statment is enclosed with _______.</h1>
+      <button class="btn">1. quotes</button>
+      <button class="btn">2. curly brackets</button>
+      <button class="btn">3. parenthesis</button>
+      <button class="btn">4. square brackets</button>
     </div>
-    <div class="wrapper">
-      <h1>Question 3</h1>
-      <button class="btn">Answer 1</button>
-      <button class="btn">Answer 2</button>
-      <button class="btn">Answer 3</button>
-      <button class="btn">Answer 4</button>
+
+    <div class="question-container">
+      <h1>Arrays in JavaScript can be used to store _______.</h1>
+      <button class="btn">1. numbers and strings</button>
+      <button class="btn">2. other arrays</button>
+      <button class="btn">3. booleans</button>
+      <button class="btn">4. all of the above</button>
     </div>
-    <div class="wrapper">
-      <h1>Question 4</h1>
-      <button class="btn">Answer 1</button>
-      <button class="btn">Answer 2</button>
-      <button class="btn">Answer 3</button>
-      <button class="btn">Answer 4</button>
+
+    <div class="question-container">
+      <h1>
+        String values must be enclosed within _______ when being assigned to
+        variables.
+      </h1>
+      <button class="btn">1. commas</button>
+      <button class="btn">2. curly brackets</button>
+      <button class="btn">3. quotes</button>
+      <button class="btn">4. parenthesis</button>
     </div>
-    <div class="wrapper">
-      <h1>Question 5</h1>
-      <button class="btn">Answer 1</button>
-      <button class="btn">Answer 2</button>
-      <button class="btn">Answer 3</button>
-      <button class="btn">Answer 4</button>
+
+    <div class="question-container">
+      <h1>
+        A very useful tool used during development and debugging for printing
+        content to the debugger is:
+      </h1>
+      <button class="btn">1. JavaScript</button>
+      <button class="btn">2. terminal/bash</button>
+      <button class="btn">3. for loops</button>
+      <button class="btn">4. console.log</button>
     </div>
+    
+    <div>
+      <h1>All Done!</h1>
+      <h2>Your final score is X</h2>
+      <p>Enter Initals: XX</p>
+      <button class="sub-btn">Submit</button>
+    </div> -->
   </body>
+
+  <script
+    src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./script.js"></script>
 </html>

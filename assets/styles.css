@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  height: 600px;
+}
+
+#starting-page {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 400px;
+  height: 350px;
+  border: #ccc;
+  position: relative;
+}
+
+#starting-page h1 {
+  text-align: center;
+}
+
+#starting-page p {
+  text-align: center;
+}
+
+#start-quiz-btn {
+  justify-items: center;
+  position: relative;
+  background-color: rgb(129, 27, 129);
+  color: white;
+}
+
+.question-container {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+}
