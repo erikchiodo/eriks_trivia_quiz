@@ -60,9 +60,6 @@ function showQuestions() {
           <ol><button class = "question-btn">${currentQuestion.options.optionThree}</button></ol>
           <ol><button class = "question-btn">${currentQuestion.options.optionFour}</button></ol>
         </ul>
-        <a href="#" class="btn btn-primary" onclick="nextQuestion()">
-          Next
-        </a>
       </div>
     </div>
   `;
@@ -70,15 +67,21 @@ function showQuestions() {
 }
 
 // Function Call for Answer Selection (Correct/Incorrect)
-var questionBtn= $(".question-btn");
+var questionBtn = $(".question-btn");
+questionBtn.on("click", function () {
+  console.log("It works");
+});
 
 function answerSelection() {
-  questionBtn.on("click", function () {
-    (if )
-
-
-})
-};
+  questionBtn.on("click", function (e) {
+    let answer = e.target.innerHTML;
+    if (answer === currentQuestion.correctAnswer) {
+      console.log("correct!");
+    } else {
+      console.log("Try Again!");
+    }
+  });
+}
 
 // Looping through each question
 function nextQuestion() {
@@ -112,3 +115,8 @@ StartButton.on("click", function () {
   showQuestions();
   Timer();
 });
+
+// On click Next button event. Add Later
+// <a href="#" class="btn btn-primary" onclick="nextQuestion()">
+//   Next
+// </a>
