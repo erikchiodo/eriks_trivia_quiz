@@ -64,23 +64,29 @@ function showQuestions() {
     </div>
   `;
   $("#question-container").html(questionHTML);
-}
 
-// Function Call for Answer Selection (Correct/Incorrect)
-var questionBtn = $(".question-btn");
-questionBtn.on("click", function () {
-  console.log("It works");
-});
+  const cardClassHTML = $(".card");
+  const nextButtonHTML = `<a href="#" class="btn btn-primary" onclick="nextQuestion()">Next</a>`;
+  const buttonPrimaryHTML = $(".btn btn-primary");
+  // Function Call for Answer Selection (Correct/Incorrect)
+  var questionBtn = $(".question-btn");
 
-function answerSelection() {
-  questionBtn.on("click", function (e) {
-    let answer = e.target.innerHTML;
-    if (answer === currentQuestion.correctAnswer) {
-      console.log("correct!");
-    } else {
-      console.log("Try Again!");
-    }
-  });
+  function answerSelection() {
+    questionBtn.on("click", function (e) {
+      e.preventDefault();
+      let answer = e.target.innerHTML;
+      if (answer === currentQuestion.correctAnswer) {
+        cardClassHTML.append(nextButtonHTML);
+        buttonPrimaryHTML.after("<hr> <p>Correct!</p>");
+        console.log("Correct");
+      } else {
+        cardClassHTML.append(nextButtonHTML);
+
+        console.log("Try Again!");
+      }
+    });
+  }
+  answerSelection();
 }
 
 // Looping through each question
