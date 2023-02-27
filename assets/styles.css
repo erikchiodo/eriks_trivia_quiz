@@ -25,20 +25,10 @@
   padding: 2rem;
 }
 
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-center {
-  justify-content: center;
-  align-items: center;
-}
-
 h1 {
   font-size: 40px;
   padding: 1em;
-  color: white;
+  color: black;
   justify-content: center;
 }
 
