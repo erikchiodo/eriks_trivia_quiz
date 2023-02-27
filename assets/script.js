@@ -65,9 +65,10 @@ function showQuestions() {
   `;
   $("#question-container").html(questionHTML);
 
-  const cardClassHTML = $(".card");
+  const cardClass = $(".card");
   const nextButtonHTML = `<a href="#" class="btn btn-primary" onclick="nextQuestion()">Next</a>`;
-  const buttonPrimaryHTML = $(".btn btn-primary");
+  const questionBtnClass = $(".btn btn-primary");
+  const correctResponseHTML = `<hr> <p>Correct!</p>`;
   // Function Call for Answer Selection (Correct/Incorrect)
   var questionBtn = $(".question-btn");
 
@@ -76,12 +77,11 @@ function showQuestions() {
       e.preventDefault();
       let answer = e.target.innerHTML;
       if (answer === currentQuestion.correctAnswer) {
-        cardClassHTML.append(nextButtonHTML);
-        buttonPrimaryHTML.after("<hr> <p>Correct!</p>");
+        cardClass.append(nextButtonHTML);
+        questionBtnClass.append(correctResponseHTML);
         console.log("Correct");
       } else {
-        cardClassHTML.append(nextButtonHTML);
-
+        cardClass.append(nextButtonHTML);
         console.log("Try Again!");
       }
     });
