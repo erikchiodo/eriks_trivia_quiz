@@ -111,13 +111,13 @@ function Timer() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
     timeEl.textContent = "Timer: " + secondsLeft;
-
-    if (secondsLeft == 0) {
+    if (secondsLeft <= 0 || questionIndex == questions.length - 1) {
       clearInterval(timerInterval);
     }
   }, 1000);
 }
 
+// Results Page (after completion of quiz)
 var dynamicTimer = $("timer float-right");
 function showResultPage() {
   // clearInterval(timerInterval);
@@ -132,14 +132,58 @@ function showResultPage() {
   $("#question-container").html(showPageHTML);
 }
 
+// Method to Show Leaderboard after quiz completes
+var initialInput = $("#initials");
+
+function showLeaderBoard() {
+  const leaderBoardHTML = `
+  <div>
+  <h1> High Scores </h1>
+
+  <button id = "go-back-btn"> Go back </button> <button id = "high-score-bth"> Clear high scores </button>
+  </div>
+  `;
+
+  $("#question-container").html(leaderBoardHTML);
+}
+
+// Submit Button Redirect To Leaderboard
+var submitBtn = $("#submit-btn");
+submitBtn.on("click", function () {
+  showLeaderBoard();
+  console.log("Clicked");
+});
+
+var goBackBtn = $("#go-back-btn");
+var highScoreBtn = $("#high-score-btn");
+
+goBackBtn.on("click", function () {
+  showStartPage();
+});
+
+// Starting Page Creation Function
+function showStartPage() {
+  const startPageHTML = `
+  <div class="card" style="width: 18rem">
+        <div class="card-body text-center">
+          <h1 class="card-title">Coding Quiz Challenge</h1>
+          <p class="card-text">
+            Try to answer the following code-related questions within the time
+            limit. Keep in mind that incorrect answers will penalize your
+            score/time by ten seconds.
+          </p>
+          <a href="#" class="start-btn">Start!</a>
+        </div>`;
+
+  $("#question-container").html(startPageHTML);
+}
+
+// Displaying StartPage
+showStartPage();
+
 // Set Up to Start Game (Initializing Game [Button] & On Click to Start)
 var StartButton = $(".start-btn");
 StartButton.on("click", function () {
   showQuestions();
   Timer();
 });
-
-// On click Next button event. Add Later
-// <a href="#" class="btn btn-primary" onclick="nextQuestion()">
-//   Next
-// </a>
