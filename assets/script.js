@@ -67,8 +67,9 @@ function showQuestions() {
 
   const cardClass = $(".card");
   const nextButtonHTML = `<a href="#" class="btn btn-primary" onclick="nextQuestion()">Next</a>`;
-  const questionBtnClass = $(".btn btn-primary");
   const correctResponseHTML = `<hr> <p>Correct!</p>`;
+  const incorrectResponseHTML = `<hr> <p>Incorrect!</p>`;
+
   // Function Call for Answer Selection (Correct/Incorrect)
   var questionBtn = $(".question-btn");
 
@@ -78,10 +79,11 @@ function showQuestions() {
       let answer = e.target.innerHTML;
       if (answer === currentQuestion.correctAnswer) {
         cardClass.append(nextButtonHTML);
-        questionBtnClass.append(correctResponseHTML);
+        cardClass.append(correctResponseHTML);
         console.log("Correct");
       } else {
         cardClass.append(nextButtonHTML);
+        cardClass.append(incorrectResponseHTML);
         console.log("Try Again!");
       }
     });
@@ -96,7 +98,8 @@ function nextQuestion() {
   if (questionIndex < questions.length) {
     showQuestions();
   } else {
-    $("#question-container").html(`<h1>No More Questions</h1>`);
+    // Call showResultPage
+    showResultPage();
   }
 }
 
@@ -113,6 +116,20 @@ function Timer() {
       clearInterval(timerInterval);
     }
   }, 1000);
+}
+
+var dynamicTimer = $("timer float-right");
+function showResultPage() {
+  // clearInterval(timerInterval);
+  const showPageHTML = `
+  <div>
+  <h1><strong>All Done!</strong></h1>
+  <h2> Your final score is ${secondsLeft}.
+  <h2> Enter Initials: <input placeholder="Initials" id ="initials"/><button id="submit-btn">Submit</button>
+  </div>
+  `;
+
+  $("#question-container").html(showPageHTML);
 }
 
 // Set Up to Start Game (Initializing Game [Button] & On Click to Start)
