@@ -128,7 +128,7 @@ function showResultPage() {
 }
 
 // Timer Function
-var answer = $(".question-btn");
+var selectedQuestion = $(".question-btn");
 var timeEl = document.querySelector(".timer");
 var secondsLeft = 60;
 function Timer() {
@@ -139,13 +139,13 @@ function Timer() {
       clearInterval(timerInterval);
     }
 
-    answer.on("click", function () {
-      if (answer !== questions.correctAnswer) {
-        console.log(answer);
-        console.log(questions.correctAnswer);
-        secondsLeft = secondsLeft - 10;
-      }
-    });
+    // selectedQuestion.on("click", function () {
+    //   if (selectedQuestion.value !== questions.correctAnswer) {
+    //     console.log(answer);
+    //     console.log(questions.correctAnswer);
+    //     secondsLeft = secondsLeft - 10;
+    //   }
+    // });
   }, 1000);
 }
 
