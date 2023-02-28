@@ -84,6 +84,7 @@ function showQuestions() {
       } else {
         cardClass.append(nextButtonHTML);
         cardClass.append(incorrectResponseHTML);
+
         console.log("Try Again!");
       }
     });
@@ -103,24 +104,11 @@ function nextQuestion() {
   }
 }
 
-// Timer Function
-var timeEl = document.querySelector(".timer");
-var secondsLeft = 60;
-
-function Timer() {
-  var timerInterval = setInterval(function () {
-    secondsLeft--;
-    timeEl.textContent = "Timer: " + secondsLeft;
-    if (secondsLeft <= 0 || questionIndex == questions.length - 1) {
-      clearInterval(timerInterval);
-    }
-  }, 1000);
-}
-
 // Results Page (after completion of quiz)
 var dynamicTimer = $("timer float-right");
 function showResultPage() {
-  // clearInterval(timerInterval);
+  // Submit Button Redirect To Leaderboard
+
   const showPageHTML = `
   <div>
   <h1><strong>All Done!</strong></h1>
@@ -130,11 +118,39 @@ function showResultPage() {
   `;
 
   $("#question-container").html(showPageHTML);
+
+  // On Click Event that re-directs to Leaderboard Page (showLeaderBoard)
+  var submitBtn = $("#submit-btn");
+  submitBtn.on("click", function () {
+    showLeaderBoard();
+    console.log("Clicked");
+  });
+}
+
+// Timer Function
+var answer = $(".question-btn");
+var timeEl = document.querySelector(".timer");
+var secondsLeft = 60;
+function Timer() {
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+    timeEl.textContent = "Timer: " + secondsLeft;
+    if (secondsLeft <= 0 || questionIndex == questions.length - 1) {
+      clearInterval(timerInterval);
+    }
+
+    answer.on("click", function () {
+      if (answer !== questions.correctAnswer) {
+        console.log(answer);
+        console.log(questions.correctAnswer);
+        secondsLeft = secondsLeft - 10;
+      }
+    });
+  }, 1000);
 }
 
 // Method to Show Leaderboard after quiz completes
 var initialInput = $("#initials");
-
 function showLeaderBoard() {
   const leaderBoardHTML = `
   <div>
@@ -145,21 +161,17 @@ function showLeaderBoard() {
   `;
 
   $("#question-container").html(leaderBoardHTML);
+
+  var goBackBtn = $("#go-back-btn");
+  var highScoreBtn = $("#high-score-btn");
+
+  goBackBtn.on("click", function () {
+    showStartPage(); //How do you reset page? (reset timer?)
+  });
+  // highScoreBtn.on("click", function () {
+
+  // });
 }
-
-// Submit Button Redirect To Leaderboard
-var submitBtn = $("#submit-btn");
-submitBtn.on("click", function () {
-  showLeaderBoard();
-  console.log("Clicked");
-});
-
-var goBackBtn = $("#go-back-btn");
-var highScoreBtn = $("#high-score-btn");
-
-goBackBtn.on("click", function () {
-  showStartPage();
-});
 
 // Starting Page Creation Function
 function showStartPage() {
