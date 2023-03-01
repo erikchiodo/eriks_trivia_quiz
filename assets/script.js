@@ -1,3 +1,5 @@
+// Intiatizing Variable to track amount of seconds left
+var secondsLeft = -1;
 // Quiz Questions
 const questions = [
   {
@@ -84,6 +86,7 @@ function showQuestions() {
       } else {
         cardClass.append(nextButtonHTML);
         cardClass.append(incorrectResponseHTML);
+        secondsLeft -= 10;
 
         console.log("Try Again!");
       }
@@ -99,9 +102,24 @@ function nextQuestion() {
   if (questionIndex < questions.length) {
     showQuestions();
   } else {
-    // Call showResultPage
     showResultPage();
   }
+}
+// Timer Function
+var selectedQuestion = $(".question-btn");
+var timeEl = document.querySelector(".timer");
+function Timer() {
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+    if (secondsLeft <= 0 || questionIndex == questions.length) {
+      clearInterval(timerInterval);
+      timeEl.textContent = "";
+      secondsLeft = -1;
+    }
+    if (secondsLeft != -1) {
+      timeEl.textContent = "Timer: " + secondsLeft;
+    }
+  }, 1000);
 }
 
 // Results Page (after completion of quiz)
@@ -116,7 +134,7 @@ function showResultPage() {
   <h2> Enter Initials: <input placeholder="Initials" id ="initials"/><button id="submit-btn">Submit</button>
   </div>
   `;
-
+  secondsLeft = -1;
   $("#question-container").html(showPageHTML);
 
   // On Click Event that re-directs to Leaderboard Page (showLeaderBoard)
@@ -125,28 +143,6 @@ function showResultPage() {
     showLeaderBoard();
     console.log("Clicked");
   });
-}
-
-// Timer Function
-var selectedQuestion = $(".question-btn");
-var timeEl = document.querySelector(".timer");
-var secondsLeft = 60;
-function Timer() {
-  var timerInterval = setInterval(function () {
-    secondsLeft--;
-    timeEl.textContent = "Timer: " + secondsLeft;
-    if (secondsLeft <= 0 || questionIndex == questions.length - 1) {
-      clearInterval(timerInterval);
-    }
-
-    // selectedQuestion.on("click", function () {
-    //   if (selectedQuestion.value !== questions.correctAnswer) {
-    //     console.log(answer);
-    //     console.log(questions.correctAnswer);
-    //     secondsLeft = secondsLeft - 10;
-    //   }
-    // });
-  }, 1000);
 }
 
 // Method to Show Leaderboard after quiz completes
@@ -175,6 +171,7 @@ function showLeaderBoard() {
 
 // Starting Page Creation Function
 function showStartPage() {
+  secondsLeft = 60;
   const startPageHTML = `
   <div class="card" style="width: 18rem">
         <div class="card-body text-center">
@@ -184,18 +181,19 @@ function showStartPage() {
             limit. Keep in mind that incorrect answers will penalize your
             score/time by ten seconds.
           </p>
-          <a href="#" class="start-btn">Start!</a>
+          <button class="start-btn">Start!</button>
         </div>`;
 
   $("#question-container").html(startPageHTML);
+
+  $(".start-btn").on("click", function () {
+    Timer();
+    showQuestions();
+  });
 }
 
 // Displaying StartPage
 showStartPage();
 
 // Set Up to Start Game (Initializing Game [Button] & On Click to Start)
-var StartButton = $(".start-btn");
-StartButton.on("click", function () {
-  showQuestions();
-  Timer();
-});
+// var StartButton = $(".start-btn");
