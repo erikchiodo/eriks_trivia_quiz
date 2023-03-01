@@ -1,9 +1,10 @@
 // Intiatizing Variable to track amount of seconds left
 var secondsLeft = -1;
+
 // Quiz Questions
 const questions = [
   {
-    prompt: "Q1. Commonly used data types DO Not Include",
+    ans: "Q1. Commonly used data types DO Not Include",
     options: {
       optionOne: "strings",
       optionTwo: "booleans",
@@ -13,8 +14,7 @@ const questions = [
     correctAnswer: "alerts",
   },
   {
-    prompt:
-      "Q2. The condition in an if/else statment is enclosed with _______.",
+    ans: "Q2. The condition in an if/else statment is enclosed with _______.",
     options: {
       optionOne: "quotes",
       optionTwo: "curly brackets",
@@ -24,7 +24,7 @@ const questions = [
     correctAnswer: "parenthesis",
   },
   {
-    prompt: "Q3. Arrays in JavaScript can be used to store _______.",
+    ans: "Q3. Arrays in JavaScript can be used to store _______.",
     options: {
       optionOne: "numbers and strings",
       optionTwo: "other arrays",
@@ -34,8 +34,7 @@ const questions = [
     correctAnswer: "all of the above",
   },
   {
-    prompt:
-      "Q4. A very useful tool used during development and debugging for printing content to the debugger is:",
+    ans: "Q4. A very useful tool used during development and debugging for printing content to the debugger is:",
     options: {
       optionOne: "JavaScript",
       optionTwo: "terminal/bash",
@@ -55,7 +54,7 @@ function showQuestions() {
   const questionHTML = `
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">${currentQuestion.prompt}</h5>
+        <h5 class="card-title">${currentQuestion.ans}</h5>
         <ul>
           <ol><button class = "question-btn">${currentQuestion.options.optionOne}</button></ol>
           <ol><button class = "question-btn">${currentQuestion.options.optionTwo}</button></ol>
@@ -82,13 +81,10 @@ function showQuestions() {
       if (answer === currentQuestion.correctAnswer) {
         cardClass.append(nextButtonHTML);
         cardClass.append(correctResponseHTML);
-        console.log("Correct");
       } else {
         cardClass.append(nextButtonHTML);
         cardClass.append(incorrectResponseHTML);
         secondsLeft -= 10;
-
-        console.log("Try Again!");
       }
     });
   }
@@ -102,6 +98,7 @@ function nextQuestion() {
   if (questionIndex < questions.length) {
     showQuestions();
   } else {
+    questionIndex = 0;
     showResultPage();
   }
 }
@@ -124,6 +121,9 @@ function Timer() {
 
 // Results Page (after completion of quiz)
 var dynamicTimer = $("timer float-right");
+// var initialInput = $("#initials");
+var initialInput = document.getElementById("#initials");
+
 function showResultPage() {
   // Submit Button Redirect To Leaderboard
 
@@ -134,35 +134,59 @@ function showResultPage() {
   <h2> Enter Initials: <input placeholder="Initials" id ="initials"/><button id="submit-btn">Submit</button>
   </div>
   `;
+  let tempSecondsLeft = secondsLeft;
   secondsLeft = -1;
   $("#question-container").html(showPageHTML);
 
   // On Click Event that re-directs to Leaderboard Page (showLeaderBoard)
   var submitBtn = $("#submit-btn");
   submitBtn.on("click", function () {
+    // take the content of initials and score, and add it to leaderboard
+    // get the current value of the leaderboard
+    let currentLeaderboard = JSON.parse(localStorage.getItem("leaderboard"));
+
+    // console.log(`${tempSecondsLeft}` + "-" + `${initials.value}`);
+    if (currentLeaderboard == null) {
+      currentLeaderboard = [];
+    }
+    currentLeaderboard.push(`${tempSecondsLeft}` + "-" + `${initials.value}`);
+
+    localStorage.setItem("leaderboard", JSON.stringify(currentLeaderboard));
     showLeaderBoard();
-    console.log("Clicked");
   });
 }
 
 // Method to Show Leaderboard after quiz completes
-var initialInput = $("#initials");
 function showLeaderBoard() {
+  let currentLeaderboard = JSON.parse(localStorage.getItem("leaderboard"));
+
   const leaderBoardHTML = `
   <div>
   <h1> High Scores </h1>
-
   <button id = "go-back-btn"> Go back </button> <button id = "high-score-bth"> Clear high scores </button>
   </div>
   `;
 
+  const leaderboardWrapper = document.createElement("ul");
+
+  currentLeaderboard.forEach((item, i) => {
+    let scoreName = item.split("-");
+    console.log(scoreName[0], scoreName[1]);
+
+    const newScore = document.createElement("li");
+    newScore.innerHTML = `${scoreName[0]} -  ${scoreName[1]}`;
+    leaderboardWrapper.appendChild(newScore);
+  });
+
   $("#question-container").html(leaderBoardHTML);
+
+  $("#question-container").append(leaderboardWrapper);
 
   var goBackBtn = $("#go-back-btn");
   var highScoreBtn = $("#high-score-btn");
 
   goBackBtn.on("click", function () {
-    showStartPage(); //How do you reset page? (reset timer?)
+    showStartPage();
   });
   // highScoreBtn.on("click", function () {
 
@@ -194,6 +218,3 @@ function showStartPage() {
 
 // Displaying StartPage
 showStartPage();
-
-// Set Up to Start Game (Initializing Game [Button] & On Click to Start)
-// var StartButton = $(".start-btn");
