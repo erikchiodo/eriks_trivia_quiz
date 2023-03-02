@@ -17,18 +17,22 @@
 body {
   width: 100vw;
   height: 100vh;
-  background-color: antiquewhite;
+  /* background-color: antiquewhite; */
 }
 
 #question-container {
-  padding: 20px;
+  padding-top: 50px;
   margin-bottom: 20px;
-  width: 850px;
+  width: 100vw;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card {
   justify-content: center;
+  justify-items: center;
+  width: 300px;
   /* justify-items: center; */
 }
 
@@ -39,15 +43,19 @@ h1 {
   justify-content: center;
 }
 
-#start-quiz-btn {
-  justify-items: center;
+.start-btn {
   position: relative;
+  height: 40px;
+  width: 100px;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 400px;
+  cursor: pointer;
   background-color: rgb(129, 27, 129);
   color: white;
+  margin: 10px;
 }
 
-/* not working */
-.card-body p {
-  padding: 30px;
-  margin-left: 20px;
+.card-title {
+  width: fit-content;
 }

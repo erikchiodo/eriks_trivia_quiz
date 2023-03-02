@@ -86,6 +86,7 @@ function showQuestions() {
         cardClass.append(incorrectResponseHTML);
         secondsLeft -= 10;
       }
+      questionBtn.off("click");
     });
   }
   answerSelection();
@@ -158,21 +159,18 @@ function showResultPage() {
 
 // Method to Show Leaderboard after quiz completes
 function showLeaderBoard() {
-  let currentLeaderboard = JSON.parse(localStorage.getItem("leaderboard"));
-
   const leaderBoardHTML = `
   <div>
-  <h1> High Scores </h1>
-  <button id = "go-back-btn"> Go back </button> <button id = "high-score-bth"> Clear high scores </button>
+  <h1 class = "high-score-header"> High Scores </h1>
+  <button id = "go-back-btn"> Go back </button> <button id = "high-score-btn"> Clear high scores </button>
   </div>
   `;
 
+  let currentLeaderboard = JSON.parse(localStorage.getItem("leaderboard"));
   const leaderboardWrapper = document.createElement("ul");
-
   currentLeaderboard.forEach((item, i) => {
     let scoreName = item.split("-");
     console.log(scoreName[0], scoreName[1]);
-
     const newScore = document.createElement("li");
     newScore.innerHTML = `${scoreName[0]} -  ${scoreName[1]}`;
     leaderboardWrapper.appendChild(newScore);
@@ -180,19 +178,24 @@ function showLeaderBoard() {
 
   $("#question-container").html(leaderBoardHTML);
 
-  $("#question-container").append(leaderboardWrapper);
+  $(".high-score-header").append(leaderboardWrapper);
 
-  var goBackBtn = $("#go-back-btn");
   var highScoreBtn = $("#high-score-btn");
 
+  highScoreBtn.on("click", function () {
+    localStorage.setItem("leaderboard", null);
+    leaderboardWrapper.remove();
+  });
+
+  var goBackBtn = $("#go-back-btn");
   goBackBtn.on("click", function () {
+    console.log("got here, go back button clicked");
     showStartPage();
   });
   // highScoreBtn.on("click", function () {
 
   // });
 }
-
 // Starting Page Creation Function
 function showStartPage() {
   secondsLeft = 60;
