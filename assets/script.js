@@ -186,6 +186,7 @@ function showLeaderBoard() {
 
   var highScoreBtn = $("#high-score-btn");
 
+  // High score on click
   highScoreBtn.on("click", function () {
     localStorage.setItem("leaderboard", null);
     leaderboardWrapper.remove();
