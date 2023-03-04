@@ -1,5 +1,6 @@
 // Intiatizing Variable to track amount of seconds left
-var secondsLeft = -1;
+var secondsLeft;
+var timerInterval;
 
 // Quiz Questions
 const questions = [
@@ -56,10 +57,10 @@ function showQuestions() {
       <div class="card-body">
         <h5 class="card-title">${currentQuestion.ans}</h5>
         <ul>
-          <ol><button class = "question-btn">${currentQuestion.options.optionOne}</button></ol>
-          <ol><button class = "question-btn">${currentQuestion.options.optionTwo}</button></ol>
-          <ol><button class = "question-btn">${currentQuestion.options.optionThree}</button></ol>
-          <ol><button class = "question-btn">${currentQuestion.options.optionFour}</button></ol>
+          <li><button class = "question-btn">${currentQuestion.options.optionOne}</button></li>
+          <li><button class = "question-btn">${currentQuestion.options.optionTwo}</button></li>
+          <li><button class = "question-btn">${currentQuestion.options.optionThree}</button></li>
+          <li><button class = "question-btn">${currentQuestion.options.optionFour}</button></li>
         </ul>
       </div>
     </div>
@@ -106,13 +107,14 @@ function nextQuestion() {
 // Timer Function
 var selectedQuestion = $(".question-btn");
 var timeEl = document.querySelector(".timer");
+
 function Timer() {
-  var timerInterval = setInterval(function () {
+  timerInterval = setInterval(function () {
     secondsLeft--;
     if (secondsLeft <= 0 || questionIndex == questions.length) {
       clearInterval(timerInterval);
       timeEl.textContent = "";
-      secondsLeft = -1;
+      showResultPage();
     }
     if (secondsLeft != -1) {
       timeEl.textContent = "Timer: " + secondsLeft;
@@ -127,16 +129,18 @@ var initialInput = document.getElementById("#initials");
 
 function showResultPage() {
   // Submit Button Redirect To Leaderboard
+  clearInterval(timerInterval);
+  // if (secondsLeft > 0) secondsLeft = 0;
+  let tempSecondsLeft = secondsLeft;
 
   const showPageHTML = `
   <div>
   <h1><strong>All Done!</strong></h1>
-  <h2> Your final score is ${secondsLeft}.
-  <h2> Enter Initials: <input placeholder="Initials" id ="initials"/><button id="submit-btn">Submit</button>
+  <h2> Your final score is ${tempSecondsLeft}.
+  <h2> Enter Initials: <input placeholder="Initials" id ="initials"/><button class = "start-btn" id="submit-btn">Submit</button>
   </div>
   `;
-  let tempSecondsLeft = secondsLeft;
-  secondsLeft = -1;
+
   $("#question-container").html(showPageHTML);
 
   // On Click Event that re-directs to Leaderboard Page (showLeaderBoard)
@@ -162,7 +166,7 @@ function showLeaderBoard() {
   const leaderBoardHTML = `
   <div>
   <h1 class = "high-score-header"> High Scores </h1>
-  <button id = "go-back-btn"> Go back </button> <button id = "high-score-btn"> Clear high scores </button>
+  <button class = "start-btn" id = "go-back-btn"> Go back </button> <button class = "start-btn" id = "high-score-btn"> Clear high scores </button>
   </div>
   `;
 
@@ -200,7 +204,7 @@ function showLeaderBoard() {
 function showStartPage() {
   secondsLeft = 60;
   const startPageHTML = `
-  <div class="card" style="width: 18rem">
+  <div class="card">
         <div class="card-body text-center">
           <h1 class="card-title">Coding Quiz Challenge</h1>
           <p class="card-text">
